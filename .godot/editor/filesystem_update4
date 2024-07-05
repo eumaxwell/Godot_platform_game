@@ -1,0 +1,11 @@
+res://levels/movement_clouds.gdshader
+res://scripts/area_2d_coin.gd
+res://prefabs/area_2d_coin.tscn
+res://levels/world_01.tscn
+res://actors/player.tscn
+res://prefabs/node_2d_moving_platform.tscn
+res://actors/character_body_2d_enemy.tscn
+res://scripts/Player.gd
+res://scripts/character_body_2d_enemy.gd
+res://prefabs/area_2d_hitbox.tscn
+res://scripts/Area2D_Hitbox.gd
