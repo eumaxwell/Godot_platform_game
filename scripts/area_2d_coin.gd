@@ -12,10 +12,8 @@ func _process(delta):
 
 
 func _on_body_entered(body):
-	print("colisao com moeda")
-	$AnimatedSprite2D.play("Collect")
-	
-
+	if body.name == "Player":
+		$AnimatedSprite2D.play("Collect")
 
 func _on_animated_sprite_2d_animation_finished():
 	queue_free()

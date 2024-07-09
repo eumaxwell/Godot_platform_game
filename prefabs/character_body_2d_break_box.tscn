@@ -1,0 +1,91 @@
+[gd_scene load_steps=7 format=3 uid="uid://41cqj7xa016c"]
+
+[ext_resource type="Texture2D" uid="uid://cqvvhxqlja2yq" path="res://assets/Seasonal Tilesets/5 - Misc. universal tiles/Blocks (16 x 16).png" id="1_bwatv"]
+[ext_resource type="Script" path="res://scripts/character_body_2d_break_box.gd" id="1_dsh7j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m1qvt"]
+size = Vector2(16, 16)
+
+[sub_resource type="Animation" id="Animation_jriah"]
+resource_name = "hit"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0.5), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Texture:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.610395, 0.0891008, 0.214638, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_3lsdu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Texture:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hub8x"]
+_data = {
+"RESET": SubResource("Animation_3lsdu"),
+"hit": SubResource("Animation_jriah")
+}
+
+[node name="CharacterBody2D_Break_box" type="CharacterBody2D"]
+collision_layer = 64
+collision_mask = 9
+script = ExtResource("1_dsh7j")
+pieces = PackedStringArray("res://assets/Extras/brick-piece-01.png", "res://assets/Extras/brick-piece-02.png", "res://assets/Extras/brick-piece-03.png", "res://assets/Extras/brick-piece-04.png")
+
+[node name="Texture" type="Sprite2D" parent="."]
+texture = ExtResource("1_bwatv")
+region_enabled = true
+region_rect = Rect2(16, 16, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_m1qvt")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_hub8x")
+}
+
+[node name="Marker2D_Spawn_coin" type="Marker2D" parent="."]
+position = Vector2(0, -19)

@@ -6,6 +6,7 @@ const JUMP_VELOCITY = -400.0
 
 @onready var wall_detector := $RayCast2D as RayCast2D
 @onready var texture := $Sprite2D as Sprite2D
+@onready var animation_player := $AnimationPlayer as AnimationPlayer
 
 var direction = -1
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -29,3 +30,8 @@ func _physics_process(delta):
 	velocity.x = direction * SPEED * delta
 
 	move_and_slide()
+
+
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name == "Hurt":
+		queue_free()
