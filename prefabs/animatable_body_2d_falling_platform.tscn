@@ -1,0 +1,66 @@
+[gd_scene load_steps=7 format=3 uid="uid://b20y2tcdk427j"]
+
+[ext_resource type="Script" path="res://scripts/animatable_body_2d_falling_platform.gd" id="1_6teu3"]
+[ext_resource type="Texture2D" uid="uid://cvwdc63tcafqq" path="res://assets/Extras/falling-platform-brown.png" id="1_l3d6d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o26ak"]
+size = Vector2(32, 16)
+
+[sub_resource type="Animation" id="Animation_2bm52"]
+resource_name = "Shake"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(2, 0), Vector2(0, 0), Vector2(-2, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_h3lbl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jccrv"]
+_data = {
+"RESET": SubResource("Animation_h3lbl"),
+"Shake": SubResource("Animation_2bm52")
+}
+
+[node name="AnimatableBody2D_Falling_platform" type="AnimatableBody2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_6teu3")
+
+[node name="Texture" type="Sprite2D" parent="."]
+texture = ExtResource("1_l3d6d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_o26ak")
+one_way_collision = true
+
+[node name="Timer_Respawn" type="Timer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jccrv")
+}
+
+[connection signal="timeout" from="Timer_Respawn" to="." method="_on_timer_respawn_timeout"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -8,6 +8,8 @@ const JUMP_VELOCITY = -400.0
 @onready var texture := $Sprite2D as Sprite2D
 @onready var animation_player := $AnimationPlayer as AnimationPlayer
 
+@export var enemy_score := 100
+
 var direction = -1
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -34,4 +36,5 @@ func _physics_process(delta):
 
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "Hurt":
+		Globals.score += enemy_score
 		queue_free()
